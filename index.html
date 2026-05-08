@@ -1,208 +1,322 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stealth Archer — Quick & Dirty Checklist</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background: #0d1117; color: #c9d1d9; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        .container { max-width: 700px; }
-        h1 { color: #f0c060; font-size: 1.4rem; }
-        h2 { color: #58a6ff; font-size: 1rem; border-bottom: 1px solid #21262d; padding-bottom: 4px; margin-top: 20px; }
-        .phase-badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; }
-        .form-check { padding: 6px 12px 6px 36px; border-radius: 6px; margin: 2px 0; position: relative; }
-        .form-check:hover { background: #161b22; }
-        .form-check-input { margin-left: -24px; margin-top: 4px; cursor: pointer; }
-        .form-check-input:checked { background-color: #3fb950; border-color: #3fb950; }
-        .form-check-label { font-size: 0.85rem; cursor: pointer; }
-        .form-check-input:checked + .form-check-label { color: #8b949e; text-decoration: line-through; }
-        .stats-bar { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 10px 16px; margin-bottom: 16px; display: flex; justify-content: space-between; font-size: 0.8rem; }
-        .stat { color: #8b949e; }
-        .stat strong { color: #c9d1d9; }
-        .btn-reset { font-size: 0.75rem; padding: 2px 10px; }
-        .tip { font-size: 0.75rem; color: #8b949e; padding: 4px 12px; border-left: 2px solid #30363d; margin: 4px 0 4px 12px; }
-        .video-link { font-size: 0.75rem; color: #58a6ff; text-decoration: none; margin-left: 8px; }
-        .video-link:hover { text-decoration: underline; }
-        .section-progress { height: 3px; background: #21262d; border-radius: 2px; margin: 4px 0 8px; overflow: hidden; }
-        .section-progress-bar { height: 100%; background: #3fb950; border-radius: 2px; transition: width 0.3s; }
-        .progress-container { position: sticky; top: 0; z-index: 100; background: #0d1117; padding: 12px 0; border-bottom: 1px solid #21262d; margin-bottom: 12px; }
-        .total-progress { height: 6px; background: #21262d; border-radius: 3px; overflow: hidden; }
-        .total-progress-bar { height: 100%; background: linear-gradient(90deg, #3fb950, #58a6ff, #f0c060); border-radius: 3px; transition: width 0.5s; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ultimate Stealth Archer — Glass Cannon Guide</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body{background:#0d1117;color:#c9d1d9;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding-bottom:40px}
+.container{max-width:780px}
+h1{color:#f0c060;font-size:1.3rem}
+h2{color:#58a6ff;font-size:1rem;border-bottom:1px solid #21262d;padding-bottom:4px;margin-top:22px;cursor:pointer;user-select:none}
+h2:hover{color:#79c0ff}
+h2 .toggle{color:#8b949e;font-size:0.7rem;margin-left:6px}
+.phase-badge{font-size:0.65rem;padding:1px 7px;border-radius:8px}
+.form-check{padding:5px 12px 5px 34px;border-radius:5px;margin:1px 0;position:relative}
+.form-check:hover{background:#161b22}
+.form-check-input{margin-left:-22px;margin-top:3px;cursor:pointer}
+.form-check-input:checked{background-color:#3fb950;border-color:#3fb950}
+.form-check-label{font-size:0.82rem;cursor:pointer}
+.form-check-input:checked+.form-check-label{color:#8b949e;text-decoration:line-through}
+.sticky-top{z-index:100;background:#0d1117;padding:10px 0 12px;border-bottom:1px solid #21262d;margin-bottom:12px}
+.total-bar{height:6px;background:#21262d;border-radius:3px;overflow:hidden}
+.total-fill{height:100%;background:linear-gradient(90deg,#3fb950,#58a6ff,#f0c060);border-radius:3px;transition:width .5s;width:0%}
+.section-bar{height:3px;background:#21262d;border-radius:2px;margin:3px 0 6px;overflow:hidden}
+.section-fill{height:100%;background:#3fb950;border-radius:2px;transition:width .3s;width:0%}
+.tip{font-size:0.72rem;color:#8b949e;padding:2px 10px;border-left:2px solid #30363d;margin:2px 0 2px 10px;display:block}
+.stat-box{background:#161b22;border:1px solid #30363d;border-radius:8px;padding:8px 14px;font-size:0.78rem;margin-bottom:10px;display:flex;flex-wrap:wrap;gap:8px}
+.stat-box span{color:#8b949e}
+.stat-box strong{color:#c9d1d9}
+.loc{color:#58a6ff;font-size:0.72rem}
+.skill{color:#f0c060;font-size:0.72rem}
+.warn{border-left:2px solid #f0c060;background:rgba(240,192,96,0.08)}
+.craft{border-left:2px solid #3fb950;background:rgba(63,185,80,0.08)}
+.nocraft{border-left:2px solid #f85149;background:rgba(248,81,73,0.08)}
+.btn-xs{font-size:0.7rem;padding:2px 8px}
+table{font-size:0.78rem}
+table th{color:#8b949e;font-weight:500}
+.collapsed{display:none}
+</style>
 </head>
 <body>
 <div class="container py-3">
-    <h1>🏹 Stealth Archer — Quick & Dirty Checklist</h1>
-    <p class="text-secondary small">Based on the Quick & Dirty Stealth Archer Build walkthrough series. No crafting, no enchanting, kicking butt by level 10.</p>
 
-    <div class="progress-container">
-        <div class="d-flex justify-content-between small mb-1">
-            <span class="text-secondary">Progress</span>
-            <span class="text-secondary"><span id="total-count">0</span>/<span id="total-items">0</span> (<span id="total-pct">0</span>%)</span>
-        </div>
-        <div class="total-progress">
-            <div class="total-progress-bar" id="total-bar" style="width: 0%;"></div>
-        </div>
-    </div>
+<h1>🏹 Ultimate Stealth Archer — Glass Cannon Guide</h1>
+<p class="text-secondary small">Synthesized from FudgeMuppet, UESP Wiki, TheGamer, Screen Rant, Deltia's Gaming, GameRant, Reddit. No exploits, no cheesing. Designed for legitimate Legendary play.</p>
 
-    <div id="checklist"></div>
+<div class="stat-box">
+<span>Best Race: <strong id="race-display">Orc</strong></span>
+<span>Best Stone: <strong id="stone-display">Thief (early) → Lord (late)</strong></span>
+<span>Key Perk: <strong id="perk-display">Deadly Aim (3x sneak bow)</strong></span>
+</div>
 
-    <div class="text-center mt-4 mb-3">
-        <button class="btn btn-sm btn-outline-secondary btn-reset" onclick="resetAll()">Reset All</button>
-    </div>
+<div class="sticky-top">
+<div class="d-flex justify-content-between small mb-1">
+<span class="text-secondary">Total Progress</span>
+<span class="text-secondary"><span id="count-done">0</span>/<span id="count-total">0</span> (<span id="count-pct">0</span>%)</span>
+</div>
+<div class="total-bar"><div class="total-fill" id="total-fill"></div></div>
+<div class="text-end mt-1">
+<button class="btn btn-xs btn-outline-secondary" onclick="collapseAll()">Collapse All</button>
+<button class="btn btn-xs btn-outline-secondary" onclick="expandAll()">Expand All</button>
+<button class="btn btn-xs btn-outline-danger" onclick="resetAll()">Reset</button>
+</div>
+</div>
+
+<div id="checklist"></div>
+
+<div class="text-center mt-4">
+<p class="text-secondary small">Progress auto-saves in your browser. Refresh freely.</p>
+</div>
+
 </div>
 
 <script>
-    // ── Checklist data ──
-    const sections = [
-        {
-            name: "Build Setup",
-            items: [
-                { id: "race", label: "Choose Race: Bosmer (Wood Elf)", tip: "+10 Archery, Command Animal power. Alternative: Khajiit for Night Eye." },
-                { id: "stone", label: "Activate The Thief Stone at Guardian Stones", tip: "Boosts Archery, Sneak, Light Armor, Lockpicking, Pickpocket by +20%." },
-                { id: "skills-top", label: "Prioritize Archery → Sneak → Light Armor as top 3 skills", tip: "Archery for damage, Sneak for multipliers, Light Armor for survival." },
-                { id: "perk-overdraw", label: "Take Overdraw 1/5 (+20% bow damage)", tip: "First perk point. Every rank adds 20% bow damage." },
-            ]
-        },
-        {
-            name: "Part 1 — Early Game (Helgen to Riverwood)",
-            items: [
-                { id: "helgen-escape", label: "Escape Helgen with Hadvar or Ralof", tip: "Loot everything in the keep. Follow whoever you choose." },
-                { id: "alvor-sell", label: "Sell loot to Alvor in Riverwood", tip: "Sell weapons, armor, and items. Buy a bow and arrows if needed." },
-                { id: "riverwood-trader", label: "Visit Riverwood Trader — buy Faendal's bow training", tip: "Faendal can train Archery up to 50. Take his training, then take your gold back from his house. Free Archery levels!" },
-                { id: "ember-clear", label: "Clear Embershard Mine", tip: "South of Riverwood. ~100g from loot. Good early smithing materials." },
-                { id: "perk-eagle", label: "Take Eagle Eye perk (zoom while aiming)", tip: "Hold block/aim button to zoom. Helps with long-range shots." },
-            ]
-        },
-        {
-            name: "Part 2 — Whiterun & The Golden Claw",
-            items: [
-                { id: "whiterun", label: "Head to Whiterun — report to Jarl Balgruuf", tip: "Follow the main quest to start Bleak Falls Barrow quest." },
-                { id: "farengar-conjure", label: "Buy Conjure Familiar from Farengar (if conjuration build)", tip: "150g. Use to summon distractions during fights." },
-                { id: "bleak-falls", label: "Clear Bleak Falls Barrow", tip: "Get the Dragonstone + Golden Claw. First draugr dungeon — go slow." },
-                { id: "perk-stealth1", label: "Take Stealth 1/5 (+20% harder to detect)", tip: "Essential. Reduces detection radius significantly." },
-                { id: "lucan-reward", label: "Return Golden Claw to Lucan Valerius — get 200g reward + Speech XP", tip: "Also increases merchant prices in Riverwood permanently." },
-            ]
-        },
-        {
-            name: "Part 3 — The Grind (Levels 1-10)",
-            items: [
-                { id: "halted-stream", label: "Clear Halted Stream Camp", tip: "Northwest of Whiterun. Get Transmute Mineral Ore spell tome." },
-                { id: "silent-moons", label: "Clear Silent Moons Camp", tip: "West of Whiterun. Get the Silent Moons Enchanted weapon." },
-                { id: "white-river", label: "Clear White River Watch", tip: "East of Whiterun. Named bandits with better loot." },
-                { id: "reden-redoran", label: "Clear Redoran's Retreat", tip: "Quickest bandit cave. West of Whiterun." },
-                { id: "perk-deadly-aim", label: "Take Deadly Aim (sneak bow attacks do 3x damage)", tip: "This is your core damage perk. Sneak + bow = 3x damage." },
-                { id: "faendal-train2", label: "Train Archery with Faendal again (up to 50)", tip: "Each level costs gold but is worth it. Pickpocket gold back from his house." },
-                { id: "perk-overdraw2", label: "Take Overdraw 2/5", tip: "Another +20% bow damage. Stacking." },
-            ]
-        },
-        {
-            name: "Part 4 — Mid Game Power Spike (Levels 10-15)",
-            items: [
-                { id: "perk-stealth2", label: "Take Stealth 2/5", tip: "Further detection reduction." },
-                { id: "valtheim", label: "Clear Valtheim Towers", tip: "Toll-collection camp on the road between Whiterun and Windhelm." },
-                { id: "ustengrav", label: "Clear Ustengrav", tip: "Main quest dungeon. Get the Horn of Jurgen Windcaller (well, a note)." },
-                { id: "perk-power-shot", label: "Take Power Shot (stagger with bow)", tip: "Staggers enemies on hit. Keeps melee enemies at range." },
-                { id: "perk-critical", label: "Take Critical Shot 1/3 (10% crit chance)", tip: "Free extra damage. Crits with sneak attacks are devastating." },
-            ]
-        },
-        {
-            name: "Part 5 — Froki's Bow & Endgame Prep (Levels 15-20)",
-            items: [
-                { id: "froki-quest", label: "Start Froki's Bow quest (Kyne's Sacred Trials)", tip: "Froki is southeast of Ivarstead. Completing his trials gives the Froki's Bow unique item." },
-                { id: "froki-trial1", label: "Complete trial: Bear + Sabre Cat + Frost Troll", tip: "Use terrain to your advantage. Kite the troll with arrows." },
-                { id: "froki-trial2", label: "Complete trial: Hagraven + Spiders + Spriggan", tip: "Bring fire arrows for the spriggan. Poison arrows for the hagraven." },
-                { id: "froki-bow", label: "Froki's Bow reward — gives 15% bonus damage to animals", tip: "Best early unique bow. Also get the Gauldur Amulet piece while nearby." },
-                { id: "perk-quick-shot", label: "Take Quick Shot (faster bow draw)", tip: "Faster fire rate = more DPS. Essential for taking down multiple enemies." },
-                { id: "perk-hunter-disc", label: "Take Hunter's Discipline (2x arrows from bodies)", tip: "Never run out of arrows again. Saves endless gold." },
-            ]
-        },
-        {
-            name: "Major Quests & Shouts",
-            items: [
-                { id: "shout-fus", label: "Learn Fus (Unrelenting Force) — Bleak Falls Barrow word wall", tip: "First word. Stagger is useful even at level 1." },
-                { id: "shout-wuld", label: "Learn Wuld (Whirlwind Sprint) — Dustman's Cairn word wall", tip: "Essential for evading enemies and closing gaps." },
-                { id: "companions-join", label: "Join the Companions in Whiterun", tip: "Free training, good early gear, and werewolf transformation." },
-                { id: "companions-proving", label: "Companions quest: Proving Honor (Dustman's Cairn)", tip: "Unique Silver Hand weapons + Farkas as follower." },
-                { id: "dark-brotherhood", label: "Join Dark Brotherhood (optional — great for stealth)", tip: "Shadowmere horse + great stealth gear + lucrative contracts." },
-                { id: "thieves-guild", label: "Join Thieves Guild in Riften", tip: "Fences to sell stolen goods, Nightingale armor for stealth." },
-            ]
-        },
-        {
-            name: "Gear & Items",
-            items: [
-                { id: "gear-bow-hunting", label: "Get a Hunting Bow (base) — sold at Riverwood Trader", tip: "Better than the Long Bow. ~50g." },
-                { id: "gear-bow-imperial", label: "Upgrade to Imperial Bow or Nord Hero Bow", tip: "Better damage. Found on higher-level bandits." },
-                { id: "gear-armor-leather", label: "Get full Leather or Scaled armor set", tip: "Light Armor. Scaled is better — found on higher-level bandits." },
-                { id: "gear-boots-muffle", label: "Get Muffle Boots (any Light Armor)", tip: "Sneak 100 without perks. Disenchant or buy at Radiant Raiment (Solitude)." },
-                { id: "gear-shrouded", label: "Collect Shrouded Armor set (Dark Brotherhood)", tip: "Best pre-20 stealth gear. +35% bow damage on the gloves." },
-                { id: "gear-gauldur", label: "Collect Gauldur Amulet (+30 to all stats)", tip: "Geirmund's Hall, Folgunthur, Saarthal. Worth the trip." },
-            ]
-        },
-    ];
+const DATA = [
+{
+name:"🏁 Build Setup",open:true,
+items:[
+{id:"race-orc",label:"Choose Race: <b>Orc</b> (Berserker Rage = 2x damage, half damage taken)",tip:"Berserker Rage + Deadly Aim = 6x sneak damage with bow. Best glass cannon race.","class":"warn"},
+{id:"race-alt-bosmer",label:"Alternative: <b>Bosmer</b> (+10 Archery) or <b>Khajiit</b> (+10 Sneak, Night Eye)",tip:"Bosmer is best traditional archer. Khajiit's Night Eye is invaluable for stealth in dark areas."},
+{id:"gender-dibella",label:"Choose <b>Female</b> character for Agent of Dibella (+10% damage vs males)",tip:"Most enemies are male. The Heart of Dibella quest (Markarth) gives a permanent +10% damage boost vs opposite sex."},
+{id:"stone-thief",label:"Activate <b>The Thief Stone</b> at Guardian Stones",tip:"+20% XP to Archery, Sneak, Light Armor. Located south of Riverwood on the way to Whiterun."},
+{id:"bound-bow-plan",label:"Plan: Get <b>Bound Bow</b> (Fort Amol) or craft Smithing/Enchanting",tip:"Two paths: (1) No-crafting = get Bound Bow from Fort Amol prison. (2) Crafting = level Smithing+Enchanting for Dragonbone Bow. This guide covers both."},
+{id:"mod-unofficial",label:"Install <b>Unofficial Skyrim Special Edition Patch</b> (USSEP)",tip:"Fixes hundreds of bugs. The build guide assumes USSEP is active (standard for modern playthroughs)."},
+]
+},
+{
+name:"Phase 1: Helgen & Riverwood (Levels 1-5)",open:true,
+items:[
+{id:"helgen-sneak",label:"Escape Helgen — sneak attack the bear with your bow",tip:"Start sneaking immediately in Helgen Keep. Sneak attack the bear for early Archery+Sneak XP. Follow Hadvar (easier start).",seg:"v1"},
+{id:"guardian-stones",label:"Activate Thief Stone on the way to Riverwood",tip:"Just south of Riverwood. This accelerates your three core skills: Archery, Sneak, Light Armor."},
+{id:"faendal-recruit",label:"Complete 'A Lovely Letter' — recruit <b>Faendal</b> as follower",tip:"Talk to Faendal and Camilla in Riverwood. Faendal trains Archery up to 50. Recruit him, train 5x, then take your gold back from his inventory (he's your follower so it's free). Do this every level up.",seg:"v1"},
+{id:"faendal-train50",label:"Train Archery with Faendal to <b>50</b> (5 levels per character level)",tip:"Each character level allows 5 trainer sessions. Faendal trains up to Archery 50. Take gold back from his inventory."},
+{id:"riverwood-bow",label:"Buy a <b>Hunting Bow</b> and steel/iron arrows from Riverwood Trader",tip:"Hunting Bow is available at Lucan's shop. ~50g. Also buy all the iron/steel arrows you can afford."},
+{id:"embershard-mine",label:"Clear <b>Embershard Mine</b> (east of Riverwood)",tip:"5-6 bandits. ~100g from loot. Good for early practice. Sneak the whole way."},
+{id:"bleak-falls-barrow",label:"Clear <b>Bleak Falls Barrow</b> — get Golden Claw + Dragonstone",tip:"First draugr dungeon. Practice sneaking on sleeping Draugr. Pillar puzzle: Snake-Snake-Whale. Claw door: Bear-Moth-Owl."},
+{id:"elven-bow-jorrvaskr",label:"Get <b>Elven Bow</b> from Jorrvaskr (Aela's room, Expert lock)",tip:"Quicksave before attempting. Expert lock (needs Lockpicking 50+ or many lockpicks). Contains: Elven Bow (13 base dmg) + Archery skill book.",seg:"v1"},
+{id:"perk-overdraw1",label:"Perk: <b>Overdraw 1/5</b> (+20% bow damage)",tip:"Always take Overdraw as your #1 priority until maxed."},
+{id:"perk-overdraw2",label:"Perk: <b>Overdraw 2/5</b> (+40% total)",tip:"Keep pushing Overdraw."},
+]
+},
+{
+name:"Phase 2: Whiterun & Power Spike (Levels 5-10)",open:true,
+items:[
+{id:"whiterun-report",label:"Report to Jarl Balgruuf in Whiterun — start main quest",tip:"Follow 'Before the Storm' to Whiterun. Triggers next stage."},
+{id:"halted-stream",label:"Clear <b>Halted Stream Camp</b> (northwest of Whiterun)",tip:"Get <b>Transmute Mineral Ore spell tome</b> (converts iron→silver→gold ore). Great if you want gold."},
+{id:"silent-moons",label:"Clear <b>Silent Moons Camp</b> (west of Whiterun)",tip:"Guaranteed Silent Moons Enchanted weapon. Unique enchantment."},
+{id:"white-river-watch",label:"Clear <b>White River Watch</b> (east of Whiterun)",tip:"Named bandits with better loot. Chief has a Steel enchanted weapon."},
+{id:"bow-of-hunt",label:"Clear <b>Clearspring Tarn</b> — get <b>Bow of the Hunt</b> (+20 animal damage)",tip:"South of Ivarstead. Contains the Bow of the Hunt. Great early-game bow."},
+{id:"perk-overdraw3",label:"Perk: <b>Overdraw 3/5</b> (+60% total)",tip:"Maximize bow damage first."},
+{id:"perk-eagle-eye",label:"Perk: <b>Eagle Eye</b> (zoom while blocking)",tip:"Hold block while aiming to zoom. Required for Steady Hand later."},
+],
+extra:"<div class='stat-box mt-2'><span>🔑 <b>Level 5-8 Milestone:</b> Overdraw 3/5 + Elven Bow + Bow of the Hunt = 60+ base damage per shot before sneak multiplier</span></div>"
+},
+{
+name:"Phase 3: Guild Access & Gear (Levels 10-15)",open:true,
+items:[
+{id:"dragon-rising",label:"Complete <b>Dragon Rising</b> — first dragon at Western Watchtower",tip:"You MUST do this to unlock random dragon encounters + word walls. Use cover and let guards tank."},
+{id:"heart-dibella",label:"Complete <b>The Heart of Dibella</b> (Markarth) — Agent of Dibella buff",tip:"Permanent +10% damage vs opposite sex. Important: character must be female to benefit vs most enemies."},
+{id:"book-love",label:"Complete <b>The Book of Love</b> (Riften, Temple of Mara)",tip:"Permanent +15% Magic Resistance. This is HUGE for a glass cannon build."},
+{id:"unfathomable-depths",label:"Complete <b>Unfathomable Depths</b> (Avanchenzel) — Ancient Knowledge",tip:"Permanent +15% Smithing XP. Do this before any major smithing if you plan to craft."},
+{id:"frostflow-abyss",label:"Clear <b>Frostflow Abyss</b> (near Winterhold) — +10% healing effectiveness",tip:"Light the lighthouse fire after clearing the dungeon for a permanent buff."},
+{id:"innocence-lost",label:"Complete <b>Innocence Lost</b> (Windhelm) — trigger Dark Brotherhood",tip:"Kill Grelod the Kind in the Riften orphanage. Sleep anywhere to start the Dark Brotherhood questline."},
+{id:"db-armor",label:"Join Dark Brotherhood — get <b>Shrouded Armor</b> set",tip:"Complete 'With Friends Like These...' and 'Sanctuary'. Shrouded set gives +20% bow damage (cowl) + muffle (boots).",seg:"v2"},
+{id:"db-ancient",label:"DB side quest: <b>Locate the Assassin of Old</b> — <b>Ancient Shrouded Armor</b>",tip:"Speak to Nazir after joining. Quest gives Ancient Shrouded Cowl (+35% bow damage!) + Armor + Boots (muffle). THIS IS YOUR MAIN ARMOR FOR THE GAME."},
+{id:"gauntlets-old-gods",label:"Complete <b>No One Escapes Cidhna Mine</b> (Markarth) — <b>Gauntlets of the Old Gods</b> (+20% Archery)",tip:"Side with Madanach or the Silver-Bloods. Either way you get the gauntlets. +20% Archery is excellent.",seg:"v2"},
+{id:"perk-overdraw4",label:"Perk: <b>Overdraw 4/5</b> (+80% total)",tip:"Almost at max."},
+{id:"perk-overdraw5",label:"Perk: <b>Overdraw 5/5</b> (+100% total = 2x base damage)",tip:"MAXED. This is your highest priority perk - get it before anything else."},
+],
+extra:"<div class='stat-box mt-2'><span>🔑 <b>Level 12-15 Milestone:</b> Overdraw 5/5 + Ancient Shrouded Armor (head piece +35% bow dmg) + Gauntlets of Old Gods (+20%) = +55% archery enchantments on top of 2x from Overdraw</span></div>"
+},
+{
+name:"Phase 4: The Grind (Levels 15-25)",open:true,
+items:[
+{id:"thieves-guild-join",label:"Join <b>Thieves Guild</b> in Riften (do NOT finish — keep Skeleton Key)",tip:"Join via Brynjolf in the Riften marketplace. Start the questline for access to fences and trainers."},
+{id:"aela-train",label:"Train Archery with <b>Aela the Huntress</b> (Companions, up to 75)",tip:"Join the Companions and do a few quests. Aela trains Archery 50-75. 5 sessions per level."},
+{id:"zephyr",label:"Start <b>Lost to the Ages</b> — get <b>Zephyr</b> bow (30% faster draw) from Arkngthamz",tip:"Zephyr is arguably the best mid-game bow. 30% faster draw speed = 30% more DPS. Arkngthamz is in the Reach.",seg:"v3"},
+{id:"krosis-mask",label:"Clear <b>Shearpoint</b> — get <b>Krosis</b> dragon priest mask (+20% Archery)",tip:"Shearpoint is near the Throat of the World. Krosis gives +20% Archery + Lockpicking + Alchemy. Has a dragon guarding the word wall.",seg:"v3"},
+{id:"kynes-token",label:"Complete <b>Kyne's Sacred Trials</b> (Froki's Shack, The Rift) — <b>Kyne's Token</b> (+10% Archery)",tip:"Froki is southeast of Ivarstead. Kill 5 types of animals. Reward: Kyne's Token (+10% Archery, +10% animal resistance)."},
+{id:"black-star",label:"Complete <b>The Black Star</b> (Azura's quest) — reusable grand soul gem",tip:"Azura's statue south of Winterhold. Side with Nelacar for The Black Star (reusable grand soul gem - traps human souls)."},
+{id:"perk-deadly-aim",label:"Perk: <b>DEADLY AIM</b> (3x bow sneak attack damage)",tip:"<b>BUILD-DEFINING PERK.</b> Requires: Stealth 1 + Backstab + Sneak 40. 3x multiplier on all sneak bow attacks."},
+{id:"perk-steady1",label:"Perk: <b>Steady Hand 1/2</b> (slow time 25% while zoomed)",tip:"Eagle Eye required. Slows time, making headshots at range much easier."},
+{id:"perk-steady2",label:"Perk: <b>Steady Hand 2/2</b> (slow time 50% while zoomed)",tip:"Enables precision shooting even at long range."},
+{id:"perk-power-shot",label:"Perk: <b>Power Shot</b> (50% stagger on all but largest enemies)",tip:"Stops melee enemies from reaching you. Shoots their legs while they're running toward you."},
+],
+extra:"<div class='stat-box mt-2'><span>🔑 <b>Level 18-22 Milestone:</b> Deadly Aim (3x) + Overdraw 5/5 (2x) + Ancient Shrouded Cowl (+35%) + Gauntlets (+20%) + Krosis (+20%) + Kyne's (+10%) = ~8.5x damage modifier. <b>One-shot bandit chiefs from stealth.</b></span></div>"
+},
+{
+name:"Phase 5: Midgame Scaling (Levels 25-35)",open:true,
+items:[
+{id:"niruin-train",label:"Train Archery with <b>Niruin</b> (Thieves Guild, Riften, up to 90)",tip:"Complete enough Thieves Guild quests to unlock Niruin as a trainer. Archery 75-90."},
+{id:"companions-proving",label:"Companions: <b>Proving Honor</b> (Dustman's Cairn with Farkas)",tip:"Silver Hand weapon drops. Save the Silver Greatsword for selling."},
+{id:"dawnguard-join",label:"Join <b>Dawnguard</b> (Fort Dawnguard, east Riften)",tip:"Talk to Durak in Riften. Gives access to crossbows + enhanced dwarven crossbow later."},
+{id:"sorine-train",label:"Train Archery with <b>Sorine Jurard</b> (Fort Dawnguard, up to 100)",tip:"Complete enough Dawnguard quests. Sorine trains Archery 90-100."},
+{id:"angis-camp",label:"Visit <b>Angi's Camp</b> (south of Falkreath) — +6 free Archery levels",tip:"Archery competition. Complete all 6 shots for 6 Archery levels (from 84 to 90+). Only works once per playthrough.",seg:"v3"},
+{id:"enhanced-crossbow",label:"Get <b>Enhanced Dwarven Crossbow</b> from Sorine (Fort Dawnguard)",tip:"Requires: Join Dawnguard + do 'A New Order' quest. Ignores 50% of enemy armor. Base damage 22. Very strong."},
+{id:"gauldur-amulet",label:"Collect <b>Gauldur Amulet</b> (+30 to Health, Magicka, Stamina)",tip:"3 pieces at: Geirmund's Hall (Daynas Valen), Folgunthur (Mikljur), Saarthal (Jyrik Gauldurson)."},
+{id:"perk-hunters-disc",label:"Perk: <b>Hunter's Discipline</b> (2x arrows from bodies)",tip:"Never run out of arrows. Saves thousands of gold over the game."},
+{id:"perk-quick-shot",label:"Perk: <b>Quick Shot</b> (30% faster draw)",tip:"30% faster draw = 30% more DPS. Enables fast-firing between sneak shots."},
+{id:"perk-ranger",label:"Perk: <b>Ranger</b> (move faster with drawn bow)",tip:"Essential for kiting. Walk backwards while shooting = enemies can't catch you."},
+],
+extra:"<div class='stat-box mt-2'><span>🔑 <b>Level 25-30 Milestone:</b> Archery 85-90 ~ Zephyr (30% faster draw) + Quick Shot (30% faster) + Ranger (mobile) = never stop moving, never stop shooting</span></div>"
+},
+{
+name:"Phase 6: Late Game (Levels 35-50)",open:true,
+items:[
+{id:"nightingale-bow",label:"Complete Thieves Guild: stop at <b>level 46+</b> before finishing for max Nightingale Bow",tip:"Nightingale Bow scales with level. At 46+: 19 base dmg, 30 Frost + 15 Shock. Wait until 46 before completing 'Blindsighted'.",seg:"v4"},
+{id:"auriels-bow",label:"Complete Dawnguard: <b>Auriel's Bow</b> from Forgotten Vale",tip:"13 base dmg + 20 Sun Damage (3x vs undead). Fastest draw speed of any bow. Ideal for vampire-heavy zones."},
+{id:"dwarven-black-bow",label:"Get <b>Dwarven Black Bow of Fate</b> (Kagrumez, Solstheim)",tip:"Absorbs Health/Stamina/Magicka. Great sustain bow. Kagrumez requires 3 matching resonance gems."},
+{id:"black-books",label:"Collect <b>Black Books</b> (Dragonborn DLC) — Seeker of Might (+10% Archery)",tip:"Black Book: The Winds of Change gives Seeker of Might = +10% Archery damage permanently. Read in Solstheim."},
+{id:"dragonbone-bow",label:"Craft <b>Dragonbone Bow</b> (Smithing 100 + Dragon Armor perk)",tip:"Highest base damage bow: 20 + smithing improvement. Requires Dragon bones from slain dragons."},
+{id:"perk-critical1",label:"Perk: <b>Critical Shot 1/3</b> (10% crit chance)",tip:"Free extra damage on one in ten shots."},
+{id:"perk-critical2",label:"Perk: <b>Critical Shot 2/3</b> (15% crit)",tip:"Stacking."},
+{id:"perk-critical3",label:"Perk: <b>Critical Shot 3/3</b> (20% crit)",tip:"One in five shots does bonus crit damage."},
+{id:"perk-stealth2-5",label:"Perks: <b>Stealth 2-5/5</b> + Muffled Movement + Light Foot",tip:"Max out Sneak for 40% harder to detect. Muffled Movement reduces armor noise."},
+{id:"perk-silence",label:"Perk: <b>Silence</b> (walking/running doesn't affect detection)",tip:"Maximum stealth. You can sprint right behind enemies without being heard."},
+],
+},
+{
+name:"Standing Stone Progression",open:true,
+items:[
+{id:"stone-early",label:"Early (Levels 1-40): <b>The Thief Stone</b>",tip:"+20% XP to Archery, Sneak, Light Armor. Located at Guardian Stones near Riverwood."},
+{id:"stone-mid",label:"Mid (Levels 40-80): <b>The Steed Stone</b>",tip:"+100 carry capacity + armor is weightless. Great for exploring. Near Solitude."},
+{id:"stone-late",label:"Late (Level 80+): <b>The Lord Stone</b>",tip:"+50 armor + 25% magic resistance. When skills are maxed, survivability is your focus."},
+{id:"stone-aetherium",label:"Optimized (crafting): <b>Aetherium Crown</b> with Lover + Warrior Stone",tip:"From Lost to the Ages quest. Lover (+15% all skills) + Warrior (+20% combat XP) = +35% Archery XP."},
+],
+extra:"<div class='stat-box'><span>💡 <b>Pro Tip:</b> You can change stones anytime at the Guardian Stones. Don't be afraid to switch when your priorities change.</span></div>"
+},
+{
+name:"Shout Words (Priority Order)",open:true,
+items:[
+{id:"shout-aura1",label:"<b>Aura Whisper</b> — Word 1: Sunderstone Gorge",tip:"Detect all living and undead beings. ESSENTIAL for stealth. Find enemies through walls.",seg:"v5"},
+{id:"shout-aura2",label:"Aura Whisper — Word 2: Valthume",tip:"Second word extends duration. The Morokei dungeon."},
+{id:"shout-aura3",label:"Aura Whisper — Word 3: Northwind Summit",tip:"Full shout = detect for 60 seconds. Know every enemy position before entering any room."},
+{id:"shout-slow1",label:"<b>Slow Time</b> — Word 1: Hag's End",tip:"Best shout for archers. 30% slow at 1 word. Makes aiming at moving targets trivial."},
+{id:"shout-slow2",label:"Slow Time — Word 2: Korvanjund",tip:"50% slow at 2 words."},
+{id:"shout-slow3",label:"Slow Time — Word 3: Labyrinthian",tip:"90% slow at 3 words. Nearly stops time. Boss killing mode."},
+{id:"shout-ethereal1",label:"<b>Become Ethereal</b> — Word 1: Ustengrav",tip:"Become immune to all damage for 8s. Panic button.",seg:"v5"},
+{id:"shout-ethereal2",label:"Become Ethereal — Word 2: Ironbind Barrow",tip:"13 seconds of immunity."},
+{id:"shout-ethereal3",label:"Become Ethereal — Word 3: Lost Valley Redoubt",tip:"18 seconds of total immunity. Run past anything."},
+{id:"shout-marked1",label:"<b>Marked for Death</b> — Word 1: Dark Brotherhood Sanctuary",tip:"-75 armor/sec for 60 seconds. Melts dragons. Stacks with itself.",seg:"v5"},
+{id:"shout-marked2",label:"Marked for Death — Word 2: Autumnwatch Tower",tip:"-150 armor/sec combined."},
+{id:"shout-marked3",label:"Marked for Death — Word 3: Folgunthur",tip:"-225 armor/sec. A dragon hit with all 3 words loses ALL armor in seconds."},
+{id:"shout-throw",label:"<b>Throw Voice</b> — Shearpoint (word 1)",tip:"Distract enemies. Shoot an arrow to one side, enemies run to investigate, you shoot them from behind."},
+],
+},
+{
+name:"No-Crafting Variant (FudgeMuppet Style)",open:true,
+items:[
+{id:"nobound-plan",label:"<b>Skip Smithing, Enchanting, Alchemy entirely</b>",tip:"All damage comes from unique items, perks, and sneak multipliers. No crafting skills leveled = slower overall leveling = enemies stay weaker.",cls:"nocraft"},
+{id:"nobound-bow",label:"Get <b>Bound Bow</b> from Fort Amol prison (Conjuration 50)",tip:"Bound Bow: 18 base dmg (24 with Mystic Binding perk), free Daedric arrows. Requires Conjuration 50 and Novice+Apprentice Conjuration perks.",seg:"v1"},
+{id:"nobound-quiet",label:"Get <b>Quiet Casting</b> (Illusion perk) for Bound Bow",tip:"Cast Bound Bow silently. Enemies won't hear you summoning your weapon. Also works for all spells."},
+{id:"nobound-mystic",label:"Perk: <b>Mystic Binding</b> — Bound Bow does +more damage + banish daedra",tip:"Significant damage boost. Makes Bound Bow competitive with mid-game crafted bows."},
+{id:"nobound-progress",label:"No-Crafting gear progression: Bow of Hunt → Zephyr → Nightingale Bow (46+) → Auriel's Bow",tip:"Zephyr (30% faster draw) is your best mid-game option. Nightingale Bow at 46+ is your endgame."},
+{id:"nobound-armor",label:"Armor: Shrouded → Ancient Shrouded → Nightingale Armor (32+)",tip:"All found, not crafted. Nightingale Armor at 32+ gives max stats."},
+],
+extra:"<div class='stat-box mt-2'><span>💡 <b>Why no-crafting works:</b> Enemy scaling is tied to YOUR level. Smithing/Enchanting/Alchemy give massive XP. Skipping them = you reach level 30-40 with Archery 100 instead of level 50+. Those 10-15 extra enemy levels matter enormously on Legendary.</span></div>"
+},
+{
+name:"Crafting Variant (Max Damage)",open:true,
+items:[
+{id:"craft-smithing-plan",label:"Level <b>Smithing</b> to 100: Iron daggers (early) → Dwarven/Daedric (mid) → Dragon (late)",tip:"Mine iron ore, transmute to gold, make gold rings. Then do Dwarven smithing at Markarth ruins for fast levels.",cls:"craft"},
+{id:"craft-enchanting-plan",label:"Level <b>Enchanting</b> to 100: Enchant everything you find",tip:"Buy petty soul gems, fill them, enchant daggers/rings. Sell for profit. Repeat. Fortify Barter potion helps with buying soul gems."},
+{id:"craft-arcane",label:"Perk: <b>Arcane Blacksmith</b> (improve enchanted weapons at grindstone)",tip:"Unlocks upgrading your enchanted bows. Required for max damage on Nightingale/Dragonbone."},
+{id:"craft-dragon-armor",label:"Perk: <b>Dragon Armor</b> (craft Dragon armor + Dragonbone Bow)",tip:"Dragonbone Bow (20 base) is the highest base damage bow. Smithing improvements scale with skill level."},
+{id:"craft-enchant-loadout",label:"Best enchantment loadout: <b>Fortify Archery on 4 items</b> (head/neck/gloves/ring)",tip:"Fortify Archery enchantment. Max 4 items. Each at 40% = 160% total bow damage. Stack with potions."},
+{id:"craft-resto-loop",label:"<b>SKIP</b> the Fortify Restoration loop (it's an exploit)",tip:"The alchemy/enchanting restoration loop is a well-known glitch. This build does not use it. No cheesing."},
+],
+extra:"<div class='stat-box mt-2'><span>🔑 <b>Crafting Path vs No-Crafting Path:</b> Crafting gives ~40% more damage at endgame but you'll be ~10 levels higher = tougher enemies. Pick ONE path and stick with it.</span></div>"
+},
+{
+name:"Poison Recipes (Optional — Alchemy)",open:true,
+items:[
+{id:"poison-paralysis",label:"<b>Paralysis</b>: Canis Root + Imp Stool + Mora Tapinella",tip:"Freeze tough enemies. Stops dragon priests, deathlords, and giants cold. Most important poison."},
+{id:"poison-damage-slow",label:"<b>Damage Health + Slow</b>: Imp Stool + Mora Tapinella + Canis Root",tip:"Stacked damage + slow effect. Good for kiting."},
+{id:"poison-fortify",label:"<b>Fortify Archery</b>: Juniper Berries + Canis Root",tip:"Craftable, stackable with gear enchantments. Drink before a big fight for +% bow damage."},
+{id:"poison-linger",label:"<b>Damage Health + Lingering</b>: Nightshade + Deathbell + River Betty",tip:"High DPS poison. Great for tough bosses."},
+],
+},
+{
+name:"Legendary Difficulty Tips",open:true,
+items:[
+{id:"tip-always-sneak",label:"<b>Never fire from a detected state.</b> Always shoot from stealth.",tip:"The 3x multiplier is mandatory on Legendary. Legendary reduces your damage to 0.5x and gives enemies 2x. Without sneak multiplier, you barely tickle enemies."},
+{id:"tip-shoot-move",label:"<b>Shoot, then move.</b> Enemies track your last known position.",tip:"Fire from one spot, then strafe/crouch-walk to another. By the time the enemy reaches your old position, you're somewhere else."},
+{id:"tip-aura-whisper",label:"<b>Use Aura Whisper before entering every room.</b>",tip:"Know exact enemy positions. Plan your attack route. Never walk into an ambush."},
+{id:"tip-save-often",label:"<b>Quick save (F5) before every engagement.</b>",tip:"Glass cannon = 1-2 hits to death. One power attack from a bandit chief on Legendary is instant death. Quicksave is your best friend."},
+{id:"tip-no-companions",label:"<b>Do NOT use followers.</b> Go solo.",tip:"Followers alert enemies, break stealth, trigger traps, and die constantly on Legendary. They ruin your positioning."},
+{id:"tip-level-cap",label:"<b>Keep your build focused.</b> Avoid leveling non-core skills.",tip:"Enemy scaling is tied to your level. A character with Archery 100, Sneak 80, Light Armor 60 at level 30 is stronger than a spread-out level 50."},
+{id:"tip-berserker-combo",label:"<b>Berserker Rage + Slow Time + Deadly Aim = 6x damage on slowed enemies.</b>",tip:"Pop Berserker Rage, then Slow Time, then shoot everything while they move in slow motion. Clear entire rooms before any enemy reaches you."},
+{id:"tip-arrows-matter",label:"<b>Arrow type matters.</b> Dragonbone arrows add 25 damage. Dwarven add 14.",tip:"Arrow damage IS multiplied by sneak attacks. Higher-tier arrows = more oneshots. Buy in bulk from smiths."},
+{id:"tip-stagger-chains",label:"<b>Power Shot lets you stagger-lock any single enemy.</b>",tip:"Once you have Power Shot, you can keep a dragon priest or deathlord permanently staggered by shooting them repeatedly. They never get an attack off."},
+{id:"tip-magic-resist",label:"<b>Prioritize magic resistance.</b> Your biggest threat is mages.",tip:"25% from The Book of Love + 25% from Lord Stone + enchants. Mages are the #1 killer of glass cannon builds."},
+],
+},
+];
 
-    // ── Render ──
-    function render() {
-        const container = document.getElementById('checklist');
-        let html = '';
-        let total = 0, done = 0;
-
-        sections.forEach(section => {
-            let secDone = 0;
-            let secHtml = '';
-            section.items.forEach(item => {
-                const checked = localStorage.getItem('sac-' + item.id) === 'true' ? 'checked' : '';
-                if (checked) secDone++;
-                secHtml += `
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="${item.id}" ${checked} onchange="saveState()">
-                        <label class="form-check-label" for="${item.id}">
-                            ${item.label}
-                            ${item.tip ? '<br><small class="tip">💡 ' + item.tip + '</small>' : ''}
-                        </label>
-                    </div>`;
-                total++;
-            });
-            done += secDone;
-            const pct = section.items.length > 0 ? Math.round(secDone / section.items.length * 100) : 0;
-            html += `
-                <h2>${section.name}</h2>
-                <div class="section-progress"><div class="section-progress-bar" style="width:${pct}%"></div></div>
-                ${secHtml}`;
-        });
-
-        container.innerHTML = html;
-
-        // Update totals
-        document.getElementById('total-count').textContent = done;
-        document.getElementById('total-items').textContent = total;
-        const totalPct = total > 0 ? Math.round(done / total * 100) : 0;
-        document.getElementById('total-pct').textContent = totalPct;
-        document.getElementById('total-bar').style.width = totalPct + '%';
-    }
-
-    function saveState() {
-        sections.forEach(s => {
-            s.items.forEach(item => {
-                const el = document.getElementById(item.id);
-                if (el) localStorage.setItem('sac-' + item.id, el.checked);
-            });
-        });
-        render();
-    }
-
-    function resetAll() {
-        if (!confirm('Reset all progress?')) return;
-        sections.forEach(s => {
-            s.items.forEach(item => {
-                localStorage.removeItem('sac-' + item.id);
-            });
-        });
-        render();
-    }
-
-    render();
+// ── Render ──
+function render() {
+let html='';
+let total=0,done=0;
+DATA.forEach(section=>{
+let secDone=0,secItems='';
+section.items.forEach(item=>{
+const key='sac_'+item.id;
+const checked=localStorage.getItem(key)==='1'?'checked':'';
+if(checked)secDone++;
+const cls=item.cls||item.class||'';
+secItems+=`<div class="form-check">
+<input class="form-check-input" type="checkbox" id="${item.id}" ${checked} onchange="save()">
+<label class="form-check-label" for="${item.id}">${item.label}
+${item.tip?'<span class="tip">💡 '+item.tip+'</span>':''}
+${item.seg?'<span class="loc">['+item.seg+']</span>':''}
+</label></div>`;
+total++;
+});
+done+=secDone;
+const pct=section.items.length?Math.round(secDone/section.items.length*100):0;
+const collapsed=section.open?'':'collapsed';
+html+=`<h2 onclick="toggleSection(this)">${section.name} <span class="toggle">${section.open?'▲':'▼'}</span></h2>
+<div class="section-bar"><div class="section-fill" style="width:${pct}%"></div></div>
+<div class="${collapsed}">${secItems}${section.extra||''}</div>`;
+});
+document.getElementById('checklist').innerHTML=html;
+document.getElementById('count-done').textContent=done;
+document.getElementById('count-total').textContent=total;
+const pct=total?Math.round(done/total*100):0;
+document.getElementById('count-pct').textContent=pct;
+document.getElementById('total-fill').style.width=pct+'%';
+}
+function save(){
+DATA.forEach(s=>s.items.forEach(item=>{
+const el=document.getElementById(item.id);
+if(el)localStorage.setItem('sac_'+item.id,el.checked?'1':'0');
+}));
+render();
+}
+function toggleSection(el){
+const body=el.nextElementSibling.nextElementSibling;
+const isOpen=!body.classList.contains('collapsed');
+body.classList.toggle('collapsed');
+el.querySelector('.toggle').textContent=isOpen?'▼':'▲';
+}
+function collapseAll(){document.querySelectorAll('#checklist h2').forEach(h=>{
+const body=h.nextElementSibling.nextElementSibling;
+body.classList.add('collapsed');
+h.querySelector('.toggle').textContent='▼';
+});}
+function expandAll(){document.querySelectorAll('#checklist h2').forEach(h=>{
+const body=h.nextElementSibling.nextElementSibling;
+body.classList.remove('collapsed');
+h.querySelector('.toggle').textContent='▲';
+});}
+function resetAll(){
+if(!confirm('Reset all progress?'))return;
+DATA.forEach(s=>s.items.forEach(item=>localStorage.removeItem('sac_'+item.id)));
+render();
+}
+render();
 </script>
 </body>
 </html>
